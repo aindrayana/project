@@ -21,7 +21,7 @@ class ContactsController < ApplicationController
       @num = (@page.to_i - 1) * 5
     end
     # @contact = Contact.paginate(:page => @page, :per_page => 5).order("created_at DESC")
-    @contact = Contact.order("created_at DESC").page(params[:page]).per(5)
+    @contact = Contact.order("status ASC").page(params[:page]).per(5)
     # @contact = Contact.order("name").page(params[:page]).per(5)
     # @users = User.order(:name).page params[:page]
 
