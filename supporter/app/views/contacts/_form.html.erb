@@ -1,0 +1,39 @@
+<div class="well">
+
+  <% if !@contact.errors.empty? %>
+    <div class="red-sm">Error (s) :
+      <%= @contact.errors.full_messages.join(", ") %> !!
+    </div>
+  <% end %>
+  <%= form_for @contact do |f| %>
+    <div class="form-group">
+      <%= f.label :name, class: "control-label text-right" %>
+      <%= f.text_field :name, class: "form-control", placeholder: "full name" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :email, class: "control-label text-right" %>
+      <%= f.text_field :email, class: "form-control", placeholder: "eg. justin@codecore.ca" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :department, class: "control-label text-right" %>:<br>
+
+      <%= f.radio_button("deparment", "Sales") %>
+      <%= f.label :deparment, "Sales", :value => "Sales", class: "control-label text-right" %>
+      &nbsp;&nbsp;
+      <%= f.radio_button("deparment", "Marketing") %>
+      <%= f.label :deparment, "Marketing", :value => "Marketing", class: "control-label text-right" %>
+      &nbsp;&nbsp;
+      <%= f.radio_button("deparment", "Technical") %>
+      <%= f.label :deparment, "Technical", :value => "Technical", class: "control-label text-right" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :message, class: "control-label text-right"  %>
+      <%= f.text_area :message, class: "form-control", placeholder: "message ..", rows: "4"%>
+    </div>
+    <div class="form-group">
+        <%= f.submit(class: "btn btn-primary") %>
+        <%= link_to 'Cancel', contacts_path, class:"btn btn-primary" %>
+    </div>
+  <% end %>
+
+</div>

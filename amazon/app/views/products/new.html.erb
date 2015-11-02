@@ -1,0 +1,29 @@
+<h1>Create New Product</h1>
+<!-- <p style="background-color:pink;font-size:14px;font-family:arial;width:300px;">
+  <%#= @q.errors.full_messages.join(", ") %>
+</p> -->
+<% if @q.errors.any? %>
+  <ul>Error(s):
+    <% @q.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+<p>
+<%= form_for @q do |f| %>
+<%#= form_for Product.new do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :price %>
+    <%= f.text_field :price %>
+  </div>
+  <div>
+    <%= f.label(:desc) %>
+    <%= f.text_area(:desc) %>
+  </div>
+  <%= f.submit %>
+<% end %>
+</p>

@@ -1,0 +1,220 @@
+BLOG
+====
+
+Here are a summary of suggested fields and validations (feel free to add to those)
+Post: title(required & unique), body
+Comment: body (required & unique per blog post)
+Category: title(required)
+Contact: email, name, subject and message
+
+Model a blog / comments:
+1. Ability to create a blog post
+2. Ability to view a blog post
+3. Ability to edit / update a blog post
+4. Ability to comment on a blog
+5. Ability to delete a comment on a blog post
+6. Add a non-standard method "vote_up" for the post controller (it should take an ID)
+
+Blog: Posts
+Build CRUD for the posts in your blog with:
+1. Ability to list all the posts in the app
+2. Ability to view a page with a form to create a new post
+3. Ability to click "submit" on the form and create the post
+4. It shouldn't allow creating posts without a title
+5. On the listing page there should be a link to visit the post display page
+6. That page should have "edit" and "delete" links
+7. Clicking the edit link should go to a page similar to the one for creating new post, except that it should say "editing post" and should be pre-populated with post info
+8. Clicking "delete" should prompt the user "Are you use you want to delete this post" and if the user clicks "yes" it should delete the post from database and takes user back to listing page.
+
+============================================================================
+STEPS:
+============================================================================
+1. create rails blog project
+rails new blog -d postgresql -T
+
+2. open atom, edit Gemfile on blog folder and add gems to Gemfile have a nice look
+when viewing database on rails console
+# scroll to Gemfile "group :development do" section add this
+   gem "interactive_editor"
+   gem "awesome_print"
+   gem "hirb"
+
+3. Go inside the directory and run:
+Bundle
+
+4. create database
+rake db:create
+
+5. test server
+rails s
+if you see rails welcome aboard page then server is up and running. stop server
+
+6. Create controller "home" that handles home and static pages
+rails g controller home
+
+(I created index.html.erb and point my route to it:
+root "home#index"
+get "/" => "home#index")
+
+7. Create a page "About" which has information about the tool (anything for now).
+create views/home/about.html.erb
+routes:
+get "/about" => "home#about"
+
+8. Add photo and information in the about page
+
+9. Create a navigation bar that applies to all pages.
+The navigation bar must include links to "home" and "about" pages
+<nav>
+  <%= link_to "HOME", root_path %> |
+  <%= link_to "ABOUT", about_path %> |
+</nav>
+
+--- create model ----
+10. create model post
+rails g model post title:string body:text
+# post: title(required & unique), body
+# /models/post.rb
+validates(:title, {presence: true,
+                  uniqueness: true})
+
+11. create model comment
+rails g model comment body:text
+# comment: body (required & unique per blog post)
+# /models/comment.rb
+validates(:body, {presence: true,
+                  uniqueness: true})
+
+12. create model category
+rails g model category title:string
+# category: title(required)
+# /models/category.rb
+validates(:title, {presence: true})
+
+13. create model contact
+rails g model contact email:string name:string subject:string message:text
+# contact: email, name, subject and message
+# /models/contact.rb
+# no validation
+
+-----
+
+14. migrate the model to db
+rake db:migrate
+
+15. Check the database that has been created
+rails c
+> Post.new
+> Comment.new
+> Category.new
+> Contact.new
+
+16. create controller for each model that we've created
+controller name should be plural
+> rails g controller posts
+> rails g controller comments
+> rails g controller categories
+> rails g controller contacts
+
+
+# ----- POST BLOG
+17. create post form
+  index page:
+    posts_controller:
+      def index
+        @post = Post.all
+      end
+    routes:
+      get "/posts" => "posts#index"
+    create index page
+      see: views/posts/index.html.erb
+  new post page:
+    posts_controller:
+      def new
+        @post = Post.new
+      end
+    routes:
+      get "/posts/new" => "posts#new", as: :new_post
+    create post form:
+      see: views/posts/index.html.erb
+      see: views/posts/_form.html.erb
+
+
+
+=========================
+14. then we create input form page to add new product
+routes.rb:
+  Rails.application.routes.draw do
+    get "/index" => "amazon#index"
+    root "amazon#index"
+
+    get({"/new" => "amazon#new", as: :new_product})
+    post({"/new" => "amazon#create", as: :products})
+  end
+
+AmazonController:
+  class AmazonController < ApplicationController
+    def index
+      @q = Product.all
+    end
+
+    def new
+      @q = Product.new
+    end
+
+    def create
+      product_params = params.require(:product).permit([:title, :price, :desc]) #only allow permitted param, in this case title and body
+      @q = Product.new(product_params)
+      if @q.save
+          redirect_to(index_path(@q))
+      else
+          render :new
+      end
+    end
+  end
+
+new.html.erb file on views/amazon
+<h1>Create New Product</h1>
+<%= @q.errors.full_messages.join(", ") %>
+<%#= form_for @q do |f| %>
+<%= form_for Product.new do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :price %>
+    <%= f.text_field :price %>
+  </div>
+  <div>
+    <%= f.label(:desc) %>
+    <%= f.text_area(:desc) %>
+  </div>
+  <%= f.submit %>
+<% end %>
+
+index.htlm.erb
+<h1>WELCOME TO AMAZON</h1>
+<p><a href="<%= new_product_path %>">Add New Product</a>
+</p>
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Price</th>
+      <th>Descripton</th>
+    </tr>
+  </thead>
+
+<% @q.each do |prod| %>
+  <tr>
+    <td><%= prod.id %></td>
+    <td><%= prod.title %></td>
+    <td><%= prod.price %></td>
+    <td><%= prod.desc %></td>
+  </tr>
+<% end %>
+</table>
+
+<br>

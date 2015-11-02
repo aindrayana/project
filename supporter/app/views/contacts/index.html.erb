@@ -1,0 +1,45 @@
+<div>
+  <!-- <div class="site-head-line text-center margin-top-30"></div> -->
+  <div class="margin-top-30">
+    <div>
+      <h4>Search for keyword(s) : <%= @search %></h4>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Department</th>
+          <th>Message</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @contact.each do |p| %>
+        <% @num += 1 %>
+        <tr><td><%= @num %></td>
+            <td><%= p.name %></td>
+            <td><%= mail_to p.email %></td>
+            <td><%= p.deparment %></td>
+            <td><%= p.message.split.first(5).join(' ') %> ...</td>
+            <td><%= link_to "", edit_contact_path(p), class: "glyphicon glyphicon-edit" %>
+                <%= link_to "", contact_path(p), class: "glyphicon glyphicon-trash",
+                            method: :delete,
+                            data: {confirm: "Are you sure to delete?"} %>
+                <% if p.status == 0 %>
+                  <%= link_to 'Not done', edit_status_path(p.id), class:"btn btn-default btn-xs" %>
+                <% else %>
+                  <%= link_to 'Done', edit_status_path(p.id), class:"btn btn-default btn-xs",
+                    data: {confirm: "Current status is Done. \n Are you sure to change this status?"} %>
+                <% end %>
+            </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="text-center">
+    <%= paginate @contact %>
+  </div>
+</div>

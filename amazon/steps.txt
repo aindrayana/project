@@ -1,0 +1,134 @@
+amazon
+prod title (present, unique)
+prod price (present)
+description
+submit
+
+1. create rails amazon project
+rails new amazon -d postgresql -T
+2. Go inside the directory and run:
+Bundle
+3. create database
+rake db:create
+4. Test server
+rails s
+5. rails generate controller welcome
+rails g controller amazon
+6. modified the routes.rb
+get "/index" => "amazon#index"
+root "amazon#index"
+7. modified amazon controller
+class AmazonController < ApplicationController
+  def index
+  end
+end
+8. create index.html.erb on views/amazon
+<h1>WELCOME TO AMAZON</h1>
+9. CREATE MODEL (by rails generate the model)
+rails g model product title:string price:float desc:text
+# /models/poduct.rb
+10. To run the migration
+bin/rake db:migrate
+11. Check the database that has been created
+q = Product.new
+# you need to add gems to Gemfile to view the db nicely
+# on Gemfile group :development do section add this
+#   gem "interactive_editor"
+#   gem "awesome_print"
+#   gem "hirb"
+
+11.b. We need to create validation on "models/product.rb"
+set rule: title and price is required, title is unique
+modify models/product.rb
+class Product < ActiveRecord::Base
+  validates :title, {presence: true,
+                    uniqueness: {message: "was already used"}}
+  validates :price, presence: true
+end
+
+
+12. then we modified the routes.rb:
+Rails.application.routes.draw do
+  get "/index" => "amazon#index"
+  root "amazon#index"
+
+13. we create index page that will redirect the frontpage to index:
+index.html.erb
+<h1>WELCOME TO AMAZON</h1>
+
+14. then we create input form page to add new product
+routes.rb:
+  Rails.application.routes.draw do
+    get "/index" => "amazon#index"
+    root "amazon#index"
+
+    get({"/new" => "amazon#new", as: :new_product})
+    post({"/new" => "amazon#create", as: :products})
+  end
+
+AmazonController:
+  class AmazonController < ApplicationController
+    def index
+      @q = Product.all
+    end
+
+    def new
+      @q = Product.new
+    end
+
+    def create
+      product_params = params.require(:product).permit([:title, :price, :desc]) #only allow permitted param, in this case title and body
+      @q = Product.new(product_params)
+      if @q.save
+          redirect_to(index_path(@q))
+      else
+          render :new
+      end
+    end
+  end
+
+new.html.erb file on views/amazon
+<h1>Create New Product</h1>
+<%= @q.errors.full_messages.join(", ") %>
+<%#= form_for @q do |f| %>
+<%= form_for Product.new do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :price %>
+    <%= f.text_field :price %>
+  </div>
+  <div>
+    <%= f.label(:desc) %>
+    <%= f.text_area(:desc) %>
+  </div>
+  <%= f.submit %>
+<% end %>
+
+index.htlm.erb
+<h1>WELCOME TO AMAZON</h1>
+<p><a href="<%= new_product_path %>">Add New Product</a>
+</p>
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Price</th>
+      <th>Descripton</th>
+    </tr>
+  </thead>
+
+<% @q.each do |prod| %>
+  <tr>
+    <td><%= prod.id %></td>
+    <td><%= prod.title %></td>
+    <td><%= prod.price %></td>
+    <td><%= prod.desc %></td>
+  </tr>
+<% end %>
+</table>
+
+<br>

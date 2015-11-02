@@ -1,0 +1,31 @@
+<h1>WELCOME TO AMAZON</h1>
+<p><%= link_to 'New Product', new_product_path %></p>
+<!-- <h3>Title :<%#= .title %> was added succesfully</h3> -->
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Price</th>
+      <th>Descripton</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+
+<% @q.each do |prod| %>
+  <tr>
+    <td><%= prod.id %></td>
+    <td><%= prod.title %></td>
+    <td><%= number_to_currency(prod.price, unit: "£") %></td>
+    <td><%= prod.desc %></td>
+    <td><%= link_to 'Edit', edit_product_path(prod.id) %></td>
+    <td><%= link_to "Delete", product_path(prod.id),
+                  method: :delete,
+                  data: {confirm: "Are you sure?"} %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br>

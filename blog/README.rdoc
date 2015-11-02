@@ -1,0 +1,7 @@
+rails new blog -d postgresql -T
+
+Bundle
+
+rake db:create
+
+rails g controller home

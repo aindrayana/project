@@ -1,0 +1,20 @@
+<h1>Edit Product</h1>
+<%#= @q.inspect %>
+<%= @q.errors.full_messages.join(", ") %>
+<p>
+<%= form_for @q do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :price %>
+    <%= f.text_field :price %>
+  </div>
+  <div>
+    <%= f.label(:desc) %>
+    <%= f.text_area(:desc) %>
+  </div>
+  <%= f.submit %>
+<% end %>
+</p>

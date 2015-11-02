@@ -1,0 +1,18 @@
+<!-- <h2><%#= @post.inspect %></h2> -->
+<div class="well margin-top-30">
+  <h1 class="lobster text-center"><%= @post.title %></h1>
+  <p class="text-center">
+    <%= link_to "Back", posts_path %> |
+    <%= link_to "Edit", edit_post_path(@post) %> |
+    <%= link_to "Delete", post_path(@post),
+                    method: :delete,
+                    data: {confirm: "Are you sure?"} %>
+  </p>
+  <div class="blog-content margin-top-30">
+    <blockquote>
+      <%= @post.created_at.strftime("%B %d, %Y") %>
+    </blockquote>
+    <%= simple_format(@post.body, {}, :sanitize => false) %>
+  </div>
+
+</div>
