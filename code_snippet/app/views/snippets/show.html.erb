@@ -1,0 +1,28 @@
+<%= @snippet.code.inspect %>
+<div class="text-center">
+  <% category = "#{@snippet.code.category} Snippets" %>
+  <%= link_to category, code_path(@snippet.code_id)%>
+</div>
+<div class="title font-37 text-center bottom-50">
+  <%= @snippet.title %>
+</div>
+<p>Created by: admin on <%= @snippet.created_at.strftime("%B %d, %Y") %></p>
+<div class="well">
+  <div><%= safe_join(@snippet.work.split("\r\n"), "<br />".html_safe) %></div>
+</div>
+
+
+
+<div class="title font-24">
+  Comments
+</div>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div><span class="glyphicon glyphicon-user"> </span> Natalia da Silva Santos</div>
+    <div><span class="glyphicon glyphicon-time"> </span> Dec 16, 2014</div>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p>
+
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<%#= @blog.comments.inspect %>
+<%#= @post.inspect %>
+<h1 class="lobster text-center"><%= @blog.title %></h1>
+<br>
+<div class="blog-border">
+  <div class="blog-content margin-top-30">
+    <blockquote>
+      <%= @blog.created_at.strftime("%B %d, %Y at %I:%M %P") %>
+    </blockquote>
+    <%= simple_format(@blog.body, {}, :sanitize => false) %>
+  </div>
+
+  <div>
+
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+        <%= form_tag comments_path do %>
+          <div class="form-group">
+            <%= text_area_tag(:body, "", rows: "4", class: "form-control", placeholder: "Enter your comment ...", ) %>
+            <%= hidden_field_tag(:post_id, @blog.id) %>
+          </div>
+          <div class="form-group">
+            <% if session[:user_id] %>
+              <%= submit_tag("Submit comment", class: "btn btn-primary btn-sm") %>
+            <% else %>
+              <button type="button" class="btn btn-primary btn-sm" id="submitBtn">Submit Comment</button>
+            <% end %>
+          </div>
+        <% end %>
+
+    </div>
+  </div>
+
+  <div class="title font-24">
+    <%= @blog.comments.count %> Comments:
+  </div>
+  <% @blog.comments.each do |p| %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div><span class="glyphicon glyphicon-user"> </span> <%= p.user.first_name %> <%= p.user.last_name %></div>
+        <div><span class="glyphicon glyphicon-time"> </span> <%= p.created_at.strftime("%B %d, %Y at %I:%M %P") %></div>
+        <p><%= p.body %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
+<%= render "login" %>

@@ -1,0 +1,7 @@
+<h1>CODE SNIPPETS</h1>
+
+<% @codes.each do |code| %>
+  <div class="well">
+    <%= link_to "#{code.category} (#{code.snippets.count} snippets)", code_path(code) %>
+  </div>
+<% end %>

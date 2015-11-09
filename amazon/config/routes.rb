@@ -17,14 +17,29 @@ Rails.application.routes.draw do
   # patch "/products/:id" => "products#update"
   # get "/products/:id" => "products#show", as: :product
   # delete "/products/:id" => "products#destroy"
+
+  # ------------------------------------------------------
   root "products#index"
-  get "/" => "products#index"
-  post "/" => "products#create", as: :products
-  get "/new" => "products#new", as: :new_product
-  get "/:id/edit" => "products#edit", as: :edit_product
-  patch "/:id" => "products#update"
-  get "/:id" => "products#show", as: :product
-  delete "/:id" => "products#destroy"
+
+  resources :users, only: [:new, :create]
+
+  resources :sessions, only: [:new, :create] do
+    delete :destroy, on: :collection
+  end
+
+  # get "/" => "products#index"
+  # post "/" => "products#create", as: :products
+  # get "/new" => "products#new", as: :new_product
+  # get "/:id/edit" => "products#edit", as: :edit_product
+  # patch "/:id" => "products#update"
+  # get "/:id" => "products#show", as: :product
+  # delete "/:id" => "products#destroy"
+  # -------------------------------------------------------
+
+  resources :products do
+    resources :comments
+  end
+
 
   # get "/index" => "amazon#index"
   # root "amazon#index"

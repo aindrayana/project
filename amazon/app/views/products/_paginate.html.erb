@@ -1,0 +1,25 @@
+<div style="text-align:center;">
+  <% if @page > 1 %>
+    <%= link_to "<< Prev", controller: "products", page: @page-1 %>
+  <% else %>
+    << Prev
+  <% end %>
+
+  <% if @total_pages > 0 %>
+    <% (0..@total_pages).each do |p| %>
+      <%#= p+1 %>
+      <%= link_to (p+1), controller: "products", page: p+1 %>
+    <% end %>
+  <% end %>
+
+  <% if @page <= @total_pages %>
+    <%= link_to "Next >>", controller: "products", page: @page+1 %>
+  <% else %>
+    Next >>
+  <% end %>
+</div>
+<p>&nbsp;
+</p>
+<p>
+  &nbsp;
+</p>

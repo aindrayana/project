@@ -1,0 +1,17 @@
+<div class="title font-37 text-center bottom-50">
+    <%= @code.category %> Code Snippets
+</div>
+
+<ul class="list-group">
+  <% @code.snippets.each do |snippet| %>
+  <li class="list-group-item notice">
+    <%= link_to snippet.title, code_snippet_path(@code.id, snippet.id) %>
+    <span class="pull-right">
+      <%= link_to "edit", edit_snippet_path(snippet.id), class: "glyphicon glyphicon-edit" %>
+      <%= link_to "", code_snippet_path(@code, snippet), class: "glyphicon glyphicon-trash",
+                  method: :delete,
+                  data: {confirm: "Are you sure to delete?"} %>
+    </span>
+  </li>
+  <% end %>
+</ul>

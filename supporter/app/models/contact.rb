@@ -5,6 +5,11 @@ class Contact < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   validates :email, presence: true, format: VALID_EMAIL_REGEX
 
+  DEPARTMENT_SALES = "Sales"
+  DEPARTMENT_MARKETING = "Marketing"
+  DEPARTMENT_TECHNICAL = "Technical"
+  DEPARTMENTS = [DEPARTMENT_SALES, DEPARTMENT_MARKETING, DEPARTMENT_TECHNICAL]
+
   after_initialize :set_default_values
 
   # def self.words_limit(limit)

@@ -1,0 +1,46 @@
+  <!-- <div class="blog-border"> -->
+  <div class="">
+    <h1 class="lobster text-center">the sound of life</h1>
+    <div class="site-head-line text-center"></div>
+    <% @blog.each do |p| %>
+    <%#= p.user.inspect %>
+      <div><%= link_to p.title, blog_path(p), class: "blog-title-list" %></div>
+      <div class="date-red-sm margin-bottom-10">
+        <%= p.created_at.strftime("%B %d, %Y at %I:%M %P") %>
+      </div>
+      <!-- <%# if @blog.user %>
+      <div class="created_by">
+          Created by:
+          <%#= @blog.user.first_name %> <%#= @blog.user.last_name %>
+      </div>
+      <%# end %> -->
+      <div class="blog-content">
+        <%= p.body.split.first(50).join(' ') %>
+        <%#= simple_format(p.body, {}, :sanitize => false).split.first(50).join(' ') %> ..
+      </div>
+      <hr>
+    <% end %>
+    <!-- <div class="text-center"><%#= will_paginate @blog %></div> -->
+    <% if @blog.total_pages > 1 %>
+    <div>
+      <ul class="pager">
+        <% path = request.env['PATH_INFO'] %>
+        <% if @page.to_i > 2 %>
+          <li><%= link_to "Previous", "#{path}?page=#{@page.to_i - 1}" %></li>
+        <% else %>
+          <li><%= link_to "Previous", path %></li>
+        <% end %>
+        <% if @page.to_i < @blog.total_pages %>
+          <li><%= link_to "Next", "#{path}?page=#{@page.to_i + 1}" %></li>
+        <% else %>
+          <li><%= link_to "Next", "#{path}?page=#{@blog.total_pages}" %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+    <!-- current path: <%#= request.env['PATH_INFO'] %>
+    <br>
+    current page: <%#= @page %>
+    <br>
+    last page: <%#= @blog.total_pages %> -->
+  </div>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mini Blog</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <%= render "/layouts/nav" %>
+  <% if !current_page?(root_path) %>
+    <% if flash[:notice] %>
+      <div class="alert alert-success" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <%= flash[:notice] %></div>
+    <% elsif flash[:alert] %>
+      <div class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <%= flash[:alert] %></div>
+    <% end %>
+
+    <!-- <div class="ratio" style="background-image:url('http://4.bp.blogspot.com/-Z9r-RBHSms8/VhEQ2tbTysI/AAAAAAAAAck/NgYkenDHyLQ/s1600/photo-1423753623104-718aaace6772.jpg')" /> -->
+
+      <div class="container ratio" style="background-image:url('https://c2.staticflickr.com/8/7564/15865514029_d72333328c_h.jpg')">
+        <div class="col-md-2"></div>
+        <div class="col-md-2"></div>
+        <div class="box col-md-8 blog-border" style="background-color: rgba(250, 250, 250, .7); height: 600px; overflow: scroll;">
+          <% if @post %>
+            <h1 class="blog-title text-center lobster">Blog's Control Panel</h1>
+          <% end %>
+          <%= yield %>
+        </div>
+      </div>
+  <% else %>
+    <%= yield %>
+  <% end %>
+</body>
+</html>

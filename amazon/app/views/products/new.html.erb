@@ -2,6 +2,8 @@
 <!-- <p style="background-color:pink;font-size:14px;font-family:arial;width:300px;">
   <%#= @q.errors.full_messages.join(", ") %>
 </p> -->
+
+
 <% if @q.errors.any? %>
   <ul>Error(s):
     <% @q.errors.full_messages.each do |msg| %>

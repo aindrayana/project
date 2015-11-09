@@ -1,0 +1,33 @@
+// Place all the styles related to the codes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.notice {
+    padding: 15px;
+    background-color: #fafafa;
+    border-left: 6px solid #7f7f84;
+    margin-bottom: 10px;
+    // -webkit-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+    //    -moz-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+    //         box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+}
+
+.title {
+  font-family: 'Source Sans Pro', sans-serif;
+  // font-size: 37.5px;
+  font-weight: bold;
+  height: 55px;
+  line-height: 54.375px;
+  color: #222;
+}
+
+.font-12 {font-size: 12px;}
+.font-18 {font-size: 18px;}
+.font-24 {font-size: 24px;}
+.font-30 {font-size: 30px;}
+.font-37 {font-size: 37px;}
+
+.bottom-10 {margin-bottom: 10px;}
+.bottom-30 {margin-bottom: 30px;}
+.bottom-50 {margin-bottom: 50px;}
+.bottom-70 {margin-bottom: 70px;}

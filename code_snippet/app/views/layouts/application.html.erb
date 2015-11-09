@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CodeSnippet</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <%#= link_to "HOME", root_path %>
+  <%#= link_to "NEW SNIPPETS", new_snippet_path %>
+
+  <div class="container">
+    <div class="col-md-2"></div>
+    <div class="box col-md-8">
+      <%= render "/layouts/nav" %>
+      <%= yield %>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</body>
+</html>

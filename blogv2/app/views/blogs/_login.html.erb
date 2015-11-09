@@ -1,0 +1,31 @@
+<!--==================== Modal =============================================-->
+<div class="modal fade" id="loginModal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content col-md-7 col-md-offset-3">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2 class="modal-title text-center">Sign in</h2>
+          <div class="signup-tagline text-center">and comments your blogs</div>
+            <img class="profile-img" src="https://scontent.cdninstagram.com/hphotos-xta1/t51.2885-15/s320x320/e35/11378916_1047515518625819_492552296_n.jpg"
+                alt="">
+                <%= form_tag sessions_path, :class => "form-signin" do %>
+                  <%= email_field_tag :email, "", class: "form-control", placeholder: "Email", required:true %>
+                  <%= password_field_tag :password, "", class: "form-control", placeholder: "Password", required:true %>
+                  <%= submit_tag "Sign In", class: "btn btn-lg btn-primary btn-block" %>
+                <% end %>
+        </div>
+        <%= link_to "Not member? Sign up here", new_user_path, class:"text-center new-account" %>
+    </div>
+
+
+  </div>
+</div>
+<script>
+$(document).ready(function(){
+    $("#submitBtn").click(function(){
+        $("#loginModal").modal();
+    });
+});
+</script>

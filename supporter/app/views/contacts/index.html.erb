@@ -1,9 +1,9 @@
 <div>
   <!-- <div class="site-head-line text-center margin-top-30"></div> -->
   <div class="margin-top-30">
-    <div>
-      <h4>Search for keyword(s) : <%= @search %></h4>
-    </div>
+    <% if @search %>
+    <div><h4>Search for keyword(s) : <%= @search %></h4></div>
+    <% end %>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -23,7 +23,8 @@
             <td><%= mail_to p.email %></td>
             <td><%= p.deparment %></td>
             <td><%= p.message.split.first(5).join(' ') %> ...</td>
-            <td><%= link_to "", edit_contact_path(p), class: "glyphicon glyphicon-edit" %>
+            <!-- <td><%#= Contact.words_limit(p.message, 5) %> ...</td> -->
+            <td width="115"><%= link_to "", edit_contact_path(p), class: "glyphicon glyphicon-edit" %>
                 <%= link_to "", contact_path(p), class: "glyphicon glyphicon-trash",
                             method: :delete,
                             data: {confirm: "Are you sure to delete?"} %>
@@ -38,6 +39,7 @@
         <% end %>
       </tbody>
     </table>
+    <!-- <div>Number of records: <%#= @contact.length %></div> -->
   </div>
   <div class="text-center">
     <%= paginate @contact %>

@@ -1,0 +1,17 @@
+  <div class="col-md-7 col-md-offset-3">
+      <div class="account-wall">
+        <h2 class="modal-title text-center">Sign up</h2>
+        <div class="signup-tagline text-center">Sign up to follow your favorite blogs</div>
+          <%= @user.errors.full_messages.join(", ") %>
+          <img class="profile-img" src="https://scontent.cdninstagram.com/hphotos-xta1/t51.2885-15/s320x320/e35/11378916_1047515518625819_492552296_n.jpg"
+              alt="">
+          <%= form_for @user, :html => {:class => "form-signin"} do |f| %>
+            <%= f.text_field :first_name, class: "form-control", placeholder: "First Name", required:true, id: "first_name" %>
+            <%= f.text_field :last_name, class: "form-control", placeholder: "Last Name", required:true %>
+            <%= f.email_field :email, class: "form-control", placeholder: "Email", required:true %>
+            <%= f.password_field :password, class: "form-control", placeholder: "Password", required:true %>
+            <%= f.submit "Sign Up", class: "btn btn-lg btn-primary btn-block" %>
+        <% end %>
+      </div>
+      <%= link_to "Already sign up? Login here", new_session_path, class:"text-center new-account" %>
+  </div>

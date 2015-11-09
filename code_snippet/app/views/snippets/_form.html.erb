@@ -1,0 +1,23 @@
+<div class="well">
+
+  <%= @snippet.errors.full_messages.join(", ") %>
+  <%= form_for @snippet do |f| %>
+    <div class="form-group">
+      <%= f.label :code_id, "Kind", class: "control-label text-right" %>
+      <%= f.select(:code_id, options_for_select(@codes.map {|c| [c.category, c.id]}), {}, {class: "form-control"}) %>
+    </div>
+    <div class="form-group">
+      <%= f.label :title, class: "control-label text-right" %>
+      <%= f.text_field :title, class: "form-control", placeholder: "snippet title" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :work, class: "control-label text-right"  %>
+      <%= f.text_area :work, class: "form-control", placeholder: "snippet code ..", rows: "12"%>
+    </div>
+    <div class="form-group">
+        <%= f.submit(class: "btn btn-primary") %>
+        <%= link_to 'Cancel', root_path, class:"btn btn-primary" %>
+    </div>
+  <% end %>
+
+</div>

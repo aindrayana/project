@@ -18,10 +18,10 @@ class ContactsController < ApplicationController
     @num = 0
     @page = params[:page] if params.has_key?(:page)
     if (@page!=0)
-      @num = (@page.to_i - 1) * 5
+      @num = (@page.to_i - 1) * 10
     end
     # @contact = Contact.paginate(:page => @page, :per_page => 5).order("created_at DESC")
-    @contact = Contact.order("status ASC").page(params[:page]).per(5)
+    @contact = Contact.order("status DESC").page(params[:page]).per(10)
     # @contact = Contact.order("name").page(params[:page]).per(5)
     # @users = User.order(:name).page params[:page]
 
@@ -59,6 +59,7 @@ class ContactsController < ApplicationController
     @contact.destroy
     redirect_to contacts_path
   end
+
   def status
     @status = Contact.find params[:id]
     if @status.status == 0
