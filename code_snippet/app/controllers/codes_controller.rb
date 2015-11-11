@@ -1,6 +1,7 @@
 class CodesController < ApplicationController
   def index
     @codes = Code.all
+    # @snipppet = Snippet.all
   end
   def show
     @code = Code.find params[:id]

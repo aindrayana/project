@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="randomizer.css">
+    <style>
+      ul { list-style-position: inside; padding-left:0; }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script>
+      function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex ;
+        while (0 !== currentIndex) {
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+        return array;
+      }
+
+      var randomizer = function(array, num) {
+          var arr = [];
+          array = shuffle(array);
+          for (var i=0; i<num; i++) {
+            arr.push([]);
+          }
+
+          for (var i=0; i < array.length; i++) {
+              arr[(i%num)].push(array[i]);
+          }
+
+          var group="";
+          for (var x=0; x < arr.length; x++) {
+              // group += "<h3>group " + (x+1) + ":</h3>";
+              // group += arr[x].toString().replace(/,/g,"<br>") + "<hr>";
+              // group += "<div class=\"col-md-2\">Team " + (x+1) + ":</div><ul>";
+              // group += "<li>" + arr[x].toString().replace(/,/g,"</li><li>") + "</li></ul>";
+              group += "<div class='col-md-2'><h3>Group " + (x+1) + "</h3>";
+              group += arr[x].toString().replace(/,/g,"<br>") + "</div>";
+              if((arr.length > 5) && x == 5) {
+                group+="<div class='col-md-12'></div>";
+              }
+          }
+          return group;
+      }
+
+      function isNumeric(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n) && (n > 0);
+      }
+
+      $(document).ready(function(){
+        $('.numError').hide();
+        $('button').on('click', function() {
+            var arrName = $("#arrName").val().replace(/ /g, '').split(",");
+            // arrName = arrName.replace(/ /g, '');
+            // arrName = arrName.split(",");
+
+            var numTeam = $("#numTeam").val();
+            if(!isNumeric(numTeam)) {
+              $('.numError').show();
+              $("#numTeam").val('');
+            } else {
+              $(".message").html(randomizer(arrName,numTeam));
+            }
+
+            // $(".message").html(arrName + " " + numTeam);
+            // console.log($("textarea").val());
+            // console.log($("textarea").html());
+          });
+
+      });
+    </script>
+  </head>
+  <body>
+    <!-- <div>Welcome to HTML</div> -->
+    <div class="container">
+      <div class="title font-37 text-center top-30 bottom-50">Team Randomizer</div>
+      <!-- <form> -->
+        <div class="form-group">
+          <label for="arrName">List of students name:</label>
+          <textarea id="arrName" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="numTeam">Number of teams: <span class="numError red">( Error: Number of team should be integer and more than 0 !! )</span></label>
+          <input type="text" class="form-control" id="numTeam" placeholder="0">
+        </div>
+        <button class="btn btn-danger">Submit</button>
+      <!-- </form> -->
+
+        <div class="message top-30"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
+
+.title {
+  font-family: 'Source Sans Pro', sans-serif;
+  // font-size: 37.5px;
+  font-weight: bold;
+  height: 55px;
+  line-height: 54.375px;
+  color: #222;
+}
+
+.red {color: #c30;font-weight: normal;}
+
+.font-12 {font-size: 12px;}
+.font-18 {font-size: 18px;}
+.font-24 {font-size: 24px;}
+.font-30 {font-size: 30px;}
+.font-37 {font-size: 37px;}
+
+.bottom-10 {margin-bottom: 10px;}
+.bottom-30 {margin-bottom: 30px;}
+.bottom-50 {margin-bottom: 50px;}
+.bottom-70 {margin-bottom: 70px;}
+
+.top-10 {margin-top: 10px;}
+.top-30 {margin-top: 30px;}
+.top-50 {margin-top: 50px;}
+.top-70 {margin-top: 70px;}
+
+.solid-border {border: 1px solid #000;}

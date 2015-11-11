@@ -9,8 +9,11 @@ Rails.application.routes.draw do
   # end
 
   resources :snippets, only: [:new, :create, :edit, :update]
+
   resources :codes do
     resources :snippets, only: [:show, :destroy]
   end
+
+  # resources :codes,
 
 end
