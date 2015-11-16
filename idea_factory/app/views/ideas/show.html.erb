@@ -1,0 +1,119 @@
+<div class="top-50"></div>
+<h2><%= @ideas.title %></h2>
+
+<hr>
+
+  <div>
+    <% if !(can? :manage, @ideas) %>
+    <div class="col-md-1 text-center">
+      <%# Join Idea ------------------------------------------------------------------------ %>
+      <% if user_signed_in? && @ideas.joined_by?(current_user) %>
+        <%= link_to "\nJOINED", idea_join_path(@ideas, @ideas.join_for(current_user)), class: "glyphicon glyphicon-ok-sign font-16 text-danger", method: :delete %>
+      <% else %>
+        <%= link_to "\nJOIN?", idea_joins_path(@ideas), class: "glyphicon glyphicon-ok-circle font-16 text-info", method: :post %>
+      <% end %>
+      <br><br>
+      <%# Like Idea ------------------------------------------------------------------------ %>
+      <% if user_signed_in? && @ideas.liked_by?(current_user) %>
+        <%= link_to "\nLIKED", idea_like_path(@ideas, @ideas.like_for(current_user)), class: "glyphicon glyphicon-heart font-16 text-info", method: :delete %>
+      <% else %>
+        <%= link_to "\nLIKE", idea_likes_path(@ideas), class: "glyphicon glyphicon-heart-empty font-16 text-info", method: :post %>
+      <% end %>
+      <%# ---------------------------------------------------------------------------------- %>
+
+    </div>
+    <div class="col-md-9 opensans font-16"><p><%= @ideas.body.html_safe %></p></div>
+    <% else %>
+    <div class="col-md-10 opensans font-16"><p><%= @ideas.body.html_safe %></p></div>
+    <% end %>
+    <div class="col-md-2 opensans font-12 reset-margin">
+      <div class="well">
+        Created by: <%= @ideas.user.displayname %><br>
+        <%= time_ago_in_words(@ideas.created_at) %> ago<br>
+        Viewed: <%= @ideas.view_count %>
+      </div>
+      <% if (can? :manage, @ideas) %>
+      <div class="well text-center">
+        <span class="text-center">
+          <% if can? :edit, @ideas %>
+            <%= link_to "Edit", edit_idea_path(@ideas) %> |
+          <% end %>
+          <% if can? :destroy, @ideas %>
+            <%= link_to "Delete", idea_path(@ideas),
+                        method: :delete,
+                        data: {confirm: "Are you sure?"} %>
+          <% end %>
+        Idea</span>
+      </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <hr>
+    <span class="font-16 oswald">Members: <%= @join_member.map(&:displayname).join(", ") %><%#= @ideas.joins.inspect %><%#= @ideas.categories.map(&:name).join(", ") %></span>
+    <hr>
+  </div>
+
+  <%# COMMENTS ----------------------------------------------------------------- %>
+
+  <div class="col-md-12">
+
+    <h4><%= pluralize(@ideas.comments.count, "Comment") %></h4>
+    <hr>
+    <% if @ideas.comments.present? %>
+      <% @ideas.comments.each do |comment| %>
+        <div class="col-md-12">
+
+          <div class="col-md-2 right-border">
+            <i class="glyphicon glyphicon-user"></i> <%= comment.user.displayname %><br>
+            <i class="glyphicon glyphicon-time"></i> <%= time_ago_in_words(comment.created_at) %> ago
+            <br>
+            <%#= can? :destroy, comment %>
+            <% if can? :destroy, comment %>
+              <%= link_to "Delete", idea_comment_path(@ideas, comment), method: :delete,
+                          class: "btn btn-danger btn-sm", data: {confirm: "Are you sure?"} %>
+            <% end %>
+          </div>
+
+          <div class="col-md-10">
+              <%= comment.body.html_safe %>
+          </div>
+
+        </div>
+        <div class="col-md-12">
+          <hr>
+        </div>
+      <% end %>
+    <% else %>
+      <p>No comment at this moment. Be the first to comment this question by submit your comment below</p>
+      <hr>
+    <% end %>
+
+    <% # --------- only signin and joined user could comment %>
+    <% if user_signed_in? && @ideas.joined_by?(current_user) %>
+      <div class="col-md-12">
+        <% if @comment.errors.any? %>
+          <%= @comment.errors.full_messages.join(", ") %>
+        <% end %>
+
+        <%= form_for [@ideas, @comment] do |f| %>
+          <div class="form-group">
+            <%= f.label :body, value: "Your comment" %>
+            <%#= f.text_area :body, class: "form-control", rows: "8" %>
+            <%= f.cktext_area :body, class: "form-control", :cols => 30, :ckeditor => {:toolbar => 'MyToolbar'} %>
+          </div>
+          <%= f.submit class: "btn btn-primary", value: "Post Your Comment" %>
+        <% end %>
+
+        <hr>
+      </div>
+    <% else %>
+      <div class="col-md-12">
+        Please click join above to comment
+      </div>
+    <% end %>
+
+
+
+  </div>

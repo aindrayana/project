@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Idea Factory</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <link href='https://fonts.googleapis.com/css?family=Oswald|Droid+Sans|Lobster|Open+Sans' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <%= render "/layouts/nav" %>
+  <div class="container">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <%= yield %></div>
+    <div class="col-md-1"></div>
+  </div>
+  <%= render "/sessions/login" %>
+
+</body>
+</html>

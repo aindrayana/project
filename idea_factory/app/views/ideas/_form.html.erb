@@ -1,0 +1,21 @@
+  <% if !@ideas.errors.empty? %>
+    <div class="red-sm">Error (s) :
+      <%= @ideas.errors.full_messages.join(", ") %> !!
+    </div>
+  <% end %>
+
+  <%= form_for @ideas do |f| %>
+    <div class="form-group">
+      <%= f.label :title, class: "control-label text-right" %>
+      <%= f.text_field :title, class: "form-control", placeholder: "title" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :body, class: "control-label text-right"  %>
+      <%= f.cktext_area :body, class: "form-control", :cols => 40, :ckeditor => {:toolbar => 'MyToolbar'} %>
+      <%#= f.text_area :body, class: "form-control", placeholder: "input question ..", rows: "4"%>
+    </div>
+    <div class="form-group">
+        <%= f.submit(class: "btn btn-primary") %>
+        <%= link_to 'Cancel', ideas_path, class:"btn btn-primary" %>
+    </div>
+  <% end %>

@@ -1,0 +1,43 @@
+<h1 class="oswald font-37">Idea Factory</h1>
+<hr>
+<% @ideas.each do |idea| %>
+    <div class="col-md-12">
+        <span class="font-16"><strong><%= link_to idea.title, idea_path(idea) %></strong></span>
+        <p><%= ActionView::Base.full_sanitizer.sanitize(idea.body).html_safe %></p>
+    </div>
+    <div class="col-md-4 color-77">
+      <i class="glyphicon glyphicon-time"></i> <%= time_ago_in_words(idea.created_at) %> ago<br>
+      <i class="glyphicon glyphicon-user"></i> <%= idea.user.displayname %> <br>
+    </div>
+    <% if !(idea.user == current_user) %>
+      <div class="col-md-4">
+
+        <!-- JOIN BUTTON -->
+        <% if user_signed_in? && idea.joined_by?(current_user) %>
+          <%= link_to "JOINED", idea_join_path(idea, idea.join_for(current_user)), class: "btn btn-primary", method: :delete %>
+        <% else %>
+          <%= link_to "JOIN", idea_joins_path(idea), class: "btn btn-default", method: :post %>
+        <% end %>
+
+        <!-- LIKE BUTTON -->
+        <% if user_signed_in? && idea.liked_by?(current_user) %>
+          <%= link_to "LIKED", idea_like_path(idea, idea.like_for(current_user)), class: "btn btn-primary", method: :delete %>
+        <% else %>
+          <%= link_to "LIKE", idea_likes_path(idea), class: "btn btn-default", method: :post %>
+        <% end %>
+
+      </div>
+    <% else %>
+      <div class="col-md-4">&nbsp;</div>
+    <% end %>
+    <div class="col-md-4 text-right">
+      <span>Members: <%= idea.joins.count %></span> |
+      <span>Likes: <%= idea.likes.count %></span>
+    </div>
+    <div class="col-md-12">
+      <hr>
+    </div>
+<% end %>
+<div class="text-center">
+  <%#= paginate @q %>
+</div>

@@ -1,0 +1,30 @@
+<h1 class="oswald font-37">USER INDEX</h1>
+
+  <div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Display Name</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user.each do |s| %>
+
+        <tr><td><%= @num += 1 %>.</td>
+            <td><%= s.displayname %></td>
+            <td><%= s.email %></td>
+            <td><%= link_to " DELETE", user_path(s), class: "glyphicon glyphicon-trash",
+                        method: :delete,
+                        data: {confirm: "Are you sure to delete?"} %>
+            </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="text-center">
+    <%= paginate @user %>
+  </div>
