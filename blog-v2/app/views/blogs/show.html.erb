@@ -1,0 +1,87 @@
+<%#= @blog.comments.inspect %>
+<%#= @post.inspect %>
+
+<%# blog title --------------------------------------------------------------- %>
+<h1 class="lobster text-center"><%= @blog.title %></h1>
+<div class="blog-info col-md-12">
+
+<%# created by and created date ---------------------------------------------- %>
+  <div class="col-md-5 border-right">
+    BY <%= @blog.user.username.upcase %><br>
+    <%= @blog.created_at.strftime("%B %d, %Y @ %I:%M %P").upcase %>
+  </div>
+
+<%# favorite blog ------------------------------------------------------------ %>
+  <div class="col-md-4 text-right" style="transform: translateY(50%)">
+    <a class="font-16 text-info" rel="nofollow" data-method="delete" href="/ideas/5/likes/14"><i class="fa fa-heart-o"></i> favorite</a>
+
+    <%# if user_signed_in? && @idea.liked_by?(current_user) %>
+      <%#= link_to "\nLIKED", idea_like_path(@idea, @idea.like_for(current_user)), class: "glyphicon glyphicon-heart font-16 text-info", method: :delete %>
+    <%# else %>
+      <%#= link_to "\nLIKE", idea_likes_path(@idea), class: "glyphicon glyphicon-heart-empty font-16 text-info", method: :post %>
+    <%# end %>
+  </div>
+
+<%# top comment count -------------------------------------------------------- %>
+  <div class="col-md-3 text-right border-left" style="transform: translateY(50%)">
+    <i class="fa fa-comment-o"></i> <%= pluralize(@blog.comments.count, "Comment") %>
+  </div>
+</div>
+
+<%# tags --------------------------------------------------------------------- %>
+<div class="blog-content clearfix">
+  tags:
+</div>
+
+<%# render blog content ------------------------------------------------------ %>
+<div class="blog-border">
+  <div class="blog-content">
+    <%= simple_format(@blog.body, {}, :sanitize => false) %>
+  </div>
+
+<%# input comment box -------------------------------------------------------- %>
+  <hr>
+  <div>
+      <%= form_for [@blog, @comment] do |f| %>
+        <div class="form-group">
+          <%= f.label :body, value: "Your comment" %>
+          <%= f.text_area :body, class: "form-control", placeholder: "Enter your comment ...", rows: "4" %>
+        </div>
+        <%= f.submit class: "btn btn-primary", value: "Post Your Comment" %>
+      <% end %>
+  </div>
+  <hr>
+
+<%# comments list ------------------------------------------------------------ %>
+  <h4><%= pluralize(@blog.comments.count, "Comment") %></h4>
+  <hr>
+  <% if @blog.comments.present? %>
+      <% @blog.comments.order("id DESC").each do |comment| %>
+        <div class="col-md-12">
+          <div class="col-md-3 right-border">
+            <i class="glyphicon glyphicon-user"></i> <%= comment.user.username %><br>
+            <i class="glyphicon glyphicon-time"></i> <%= time_ago_in_words(comment.created_at) %> ago
+            <br>
+            <% if can? :destroy, comment %>
+              <%= link_to "Delete", post_comment_path(@blog, comment), method: :delete,
+                          class: "btn btn-danger btn-sm", data: {confirm: "Are you sure?"} %>
+            <% end %>
+          </div>
+
+          <div class="col-md-9">
+              <%= comment.body.html_safe %>
+          </div>
+
+        </div>
+        <div class="col-md-12">
+          <hr>
+        </div>
+      <% end %>
+  <% else %>
+    <p class="top-30">No comment at this moment. Be the first to comment this question by submit your comment below</p>
+    <hr>
+  <% end %>
+
+
+</div>
+<%#= render "login" %>

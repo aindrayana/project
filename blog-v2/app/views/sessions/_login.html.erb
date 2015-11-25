@@ -1,0 +1,33 @@
+<div class="modal fade top-80" id="loginModal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="login-panel">
+      <h3 class="text-center">Log in to your account</h3>
+        <%= form_tag sessions_path, :class => "form-signin" do %>
+          <div class="form-group has-feedback has-feedback-left">
+            <%= email_field_tag :email, "", class: "form-control", placeholder: "email", required:true %>
+            <i class="fa fa-envelope-o form-control-feedback"></i>
+          </div>
+          <div class="form-group has-feedback has-feedback-left">
+            <%= password_field_tag :password, "", class: "form-control", placeholder: "password", required:true %>
+            <i class="icon-lock form-control-feedback"></i>
+          </div>
+          <%= submit_tag "Sign In", class: "btn btn-lg btn-primary btn-block purple" %>
+      <% end %>
+      <div class="login-panel-footer text-center">
+          <%= link_to "Not a member? Sign up here", new_user_path, class:"text-center new-account" %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+$(document).ready(function(){
+    $("#login").click(function(){
+        $("#loginModal").modal();
+    });
+});
+</script>

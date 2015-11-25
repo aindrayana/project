@@ -1,0 +1,49 @@
+
+  <section id="home">
+    <div id="info">
+      <div id="info-content">
+        <p class="lobster font-42"><strong>the sound of life</strong></p>
+        <p>“People will forget what you said, people will forget what you did,<br>but people will never forget how you made them feel.”</p>
+        <i class="fa fa-angle-down fa-2x"></i>
+      </div>
+    </div>
+
+    <a href="#blog-list">
+      <div class="scroll-down">
+        <span>
+            <i class="fa fa-angle-down fa-2x"></i>
+        </span>
+      </div>
+    </a>
+  </section>
+
+
+  <a name="blog-list"></a>
+  <!-- Main Content -->
+  <div class="container top-100">
+      <div>
+          <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-4">
+
+            <% @blogs.each do |blog| %>
+              <div class="post-preview">
+                  <a href="post.html">
+                      <h2 class="post-title"><%= link_to blog.title, blog_path(blog) %></h2>
+                      <div class="post-subtitle opensans font-16 top-10">
+                        <%= (strip_tags(blog.body)).split.first(20).join(' ').html_safe %> ...
+                      </div>
+                  </a>
+                  <p class="post-meta lora">Posted by <a href="#">Start Bootstrap</a> on September 24, 2014</p>
+              </div>
+              <hr>
+            <% end %>
+
+              <!-- Pager -->
+              <ul class="pager">
+                  <li class="next">
+                      <a href="#">Older Posts &rarr;</a>
+                  </li>
+              </ul>
+
+          </div>
+      </div>
+  </div>

@@ -1,0 +1,21 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <%= link_to "sound of life", root_path, class: "navbar-brand lobster" %>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><%= link_to "<i class='fa fa-plus-square'></i> new blog post".html_safe, new_post_path %></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+          <li><a>hello <%= current_user.username %></a></li>
+          <li><%= link_to "log out", sessions_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "sign up", new_user_path %></li>
+          <li><%= link_to "log in","javascript:void(0);", id: "login" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

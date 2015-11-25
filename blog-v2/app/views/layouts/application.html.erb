@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blog v2</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Oswald|Droid+Sans|Lobster' %>
+  <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' %>
+  <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' %>
+
+</head>
+<body>
+
+  <% if @admin_nav %>
+    <%= render "/layouts/nav_admin" %>
+    <!-- <h1 class="blog-title text-center lobster">Blog's Control Panel</h1> -->
+    <div class="container">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <%= yield %></div>
+      <div class="col-md-1"></div>
+    </div>
+  <% else %>
+    <%= render "/layouts/nav" %>
+
+    <% if !current_page?(root_path) %>
+      <div class="container">
+        <div class="col-md-2"></div>
+        <div class="box col-md-8 top-30 bottom-50 form-wall">
+          <%= yield %>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+      <div class="footer">
+        &nbsp;
+      </div>
+    <% else %>
+      <%= yield %>
+    <% end %>
+
+  <% end %>
+  <%= render "/sessions/login" %>
+
+</body>
+</html>

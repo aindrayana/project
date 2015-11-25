@@ -1,0 +1,30 @@
+
+<div class="user-page-bg">
+  <div class="top-50">
+      <div class="login-panel">
+        <h3 class="text-center">Sign up to create new account</h3>
+          <%= @user.errors.full_messages.join(", ") %>
+          <%= form_for @user, :html => {:class => "form-signin"} do |f| %>
+
+            <div class="form-group has-feedback has-feedback-left">
+              <%= f.text_field :username, class: "form-control", placeholder: "username", required:true, id: "username" %>
+              <i class="icon-user form-control-feedback"></i>
+            </div>
+
+            <div class="form-group has-feedback has-feedback-left">
+              <%= f.email_field :email, class: "form-control", placeholder: "email", required:true %>
+              <i class="fa fa-envelope-o form-control-feedback"></i>
+            </div>
+
+            <div class="form-group has-feedback has-feedback-left">
+              <%= f.password_field :password, class: "form-control", placeholder: "password", required:true %>
+              <i class="icon-lock form-control-feedback"></i>
+            </div>
+            <%= f.submit "Sign Up", class: "btn btn-lg btn-primary btn-block purple" %>
+        <% end %>
+        <div class="panel-footer text-center">
+            <%= link_to "Already have an account? Log in here", new_session_path, class:"text-center new-account" %>
+        </div>
+      </div>
+  </div>
+</div>

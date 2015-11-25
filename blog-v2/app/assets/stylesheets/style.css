@@ -1,0 +1,217 @@
+/* reset */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/*#wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}*/
+
+html, body {
+  height: 100%;
+}
+
+
+#home {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  background: url("https://images.unsplash.com/photo-1437357380186-d84494521acb?dpr=2&fit=crop&fm=jpg&h=725&ixjsv=2.0.0&ixlib=rb-0.3.5&q=50&w=1300");
+	background-color: #222;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	-webkit-background-size: cover;
+	   -moz-background-size: cover;
+		 -o-background-size: cover;
+			background-size: cover;
+	padding: 0;
+  /*padding-bottom: 51% ;*/
+  margin-bottom: 50px;
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+#info {
+  display: table;
+  background: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  width: 100%;
+}
+#info #info-content {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  /*text-transform: uppercase;*/
+  color: #fff;
+  font-size: 12px;
+}
+#info #info-content h1 {
+  color: #fff;
+  /*border: 3px solid #fff;*/
+  text-align: center;
+  background: rgba(0, 0, 0, 0.1);
+  font-size: 22px;
+  font-weight: normal;
+  padding: 20px;
+  margin: 10px;
+  display: inline-block;
+}
+#info #info-content h1 strong {
+  display: block;
+  font-size: 36px;
+}
+
+
+/* custom nav-bar with tranparent background */
+
+    .navbar-custom {
+      background: transparent;
+      border-bottom: 1px solid transparent;
+    }
+    .navbar-custom .navbar-brand {
+      color: white;
+      padding: 20px;
+    }
+    .navbar-custom .navbar-brand:hover,
+    .navbar-custom .navbar-brand:focus {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .navbar-custom .nav li a {
+      color: white;
+      padding: 20px;
+    }
+    .navbar-custom .nav li a:hover,
+    .navbar-custom .nav li a:focus {
+      /*color: rgba(255, 255, 255, 0.8);*/
+      color: #fed136;
+    }
+
+    .navbar-custom.is-fixed {
+      /* when the user scrolls down, we hide the header right above the viewport */
+      position: fixed;
+      top: -61px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid #f2f2f2;
+      -webkit-transition: -webkit-transform 0.3s;
+      -moz-transition: -moz-transform 0.3s;
+      transition: transform 0.3s;
+    }
+    .navbar-custom.is-fixed .navbar-brand {
+      color: #404040;
+    }
+    .navbar-custom.is-fixed .navbar-brand:hover,
+    .navbar-custom.is-fixed .navbar-brand:focus {
+      color: #0085a1;
+    }
+    .navbar-custom.is-fixed .nav li a {
+      color: #404040;
+    }
+    .navbar-custom.is-fixed .nav li a:hover,
+    .navbar-custom.is-fixed .nav li a:focus {
+      color: #0085a1;
+    }
+    .navbar-custom.is-visible {
+      /* if the user changes the scrolling direction, we show the header */
+      -webkit-transform: translate3d(0, 100%, 0);
+      -moz-transform: translate3d(0, 100%, 0);
+      -ms-transform: translate3d(0, 100%, 0);
+      -o-transform: translate3d(0, 100%, 0);
+      transform: translate3d(0, 100%, 0);
+    }
+
+
+  /* ---------------------------------------------- /*
+   *Scroll Down
+  /* ---------------------------------------------- */
+
+  .scroll-down {
+  	position: absolute;
+  	left: 50%;
+  	bottom: 40px;
+  	border: 2px solid #fff;
+  	border-radius: 50%;
+  	height: 50px;
+  	width: 50px;
+  	margin-left: -15px;
+  	display: block;
+  	z-index: 10;
+      text-align: center;
+  }
+
+  .scroll-down span{
+      position: relative;
+      color: #fff;
+      -webkit-animation-name: drop;
+  	-webkit-animation-duration: 1s;
+  	-webkit-animation-timing-function: linear;
+  	-webkit-animation-delay: 0s;
+  	-webkit-animation-iteration-count: infinite;
+  	-webkit-animation-play-state: running;
+  	animation-name: drop;
+  	animation-duration: 1s;
+  	animation-timing-function: linear;
+  	animation-delay: 0s;
+  	animation-iteration-count: infinite;
+  	animation-play-state: running;
+  }
+
+  @-webkit-keyframes drop	{
+  	0%   { top:0px;  opacity: 0;}
+  	30%  { top:10px; opacity: 1;}
+  	100% { top:25px; opacity: 0;}
+  }
+
+  @keyframes drop	{
+  	0%   { top:0px;  opacity: 0;}
+  	30%  { top:10px; opacity: 1;}
+  	100% { top:25px; opacity: 0;}
+  }
+
+/* ------------------------------------------------------------------------- */
+.post-title a {
+  color: #001978!important;  
+}
+
+
+
+  .post-preview > a {
+    color: #404040;
+  }
+  .post-preview > a:hover,
+  .post-preview > a:focus {
+    text-decoration: none;
+    color: #001978;
+  }
+  .post-preview > a > .post-title {
+    font-size: 36px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+  .post-preview > a > .post-subtitle {
+    margin: 0;
+    font-weight: 300;
+    margin-bottom: 10px;
+  }
+  .post-preview > .post-meta {
+    color: #808080;
+    font-size: 18px;
+    font-style: italic;
+    margin-top: 10px;
+  }
+  .post-preview > .post-meta > a {
+    text-decoration: none;
+    color: #404040;
+  }
+  .post-preview > .post-meta > a:hover,
+  .post-preview > .post-meta > a:focus {
+    color: #0085a1;
+    text-decoration: underline;
+  }

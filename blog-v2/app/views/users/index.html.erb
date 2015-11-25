@@ -1,0 +1,39 @@
+
+  <div class="col-md-8 col-md-offset-2">
+    <h1 class="oswald font-37 top-80">USER INDEX</h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user.each do |s| %>
+
+        <tr><td><%= @num += 1 %>.</td>
+            <td><%= s.username %></td>
+            <td><%= s.email %></td>
+            <td><% if s.admin %>
+                  <%= link_to 'ADMIN USER', edit_status_path(s.id), class:"btn btn-default btn-xs",
+                    data: {confirm: "Current status is Done. \n Are you sure to change this status?"} %>
+                <% else %>
+                  <%= link_to 'not admin', edit_status_path(s.id), class:"btn btn-default btn-xs" %>
+                <% end %>
+                &nbsp;|&nbsp;
+            <%# ------------------------------------------------------------------------- %>
+                <%= link_to " DELETE", user_path(s), class: "glyphicon glyphicon-trash",
+                    method: :delete,
+                    data: {confirm: "Are you sure to delete?"} %>
+            </td>
+
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="text-center col-md-12">
+    <%= paginate @user %>
+  </div>
