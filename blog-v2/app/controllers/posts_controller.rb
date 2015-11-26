@@ -13,8 +13,8 @@ class PostsController < ApplicationController
       @post ||= Post.find params[:id]
     end
     def post_params
-      params.require(:post).permit([:title, :body])
-      # params.require(:post).permit([:title, :body, {tag_ids: []}])
+      # params.require(:post).permit([:title, :body])
+      params.require(:post).permit([:title, :body, {tag_ids: []}])
     end
     def control_panel
       @admin_nav = true

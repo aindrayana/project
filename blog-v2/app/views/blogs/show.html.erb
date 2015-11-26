@@ -22,8 +22,6 @@
     <% end %>
   </div>
 
-
-
 <%# top comment count -------------------------------------------------------- %>
   <div class="col-md-3 text-right border-left" style="transform: translateY(50%)">
     <i class="fa fa-comment-o"></i> <%= pluralize(@blog.comments.count, "Comment") %>
@@ -31,9 +29,16 @@
 </div>
 
 <%# tags --------------------------------------------------------------------- %>
-<div class="blog-content clearfix">
+<!-- <div class="blog-content clearfix">
   tags:
-</div>
+</div> -->
+
+<% if @blog.tags.any? %>
+  <i class="fa fa-tags"></i>
+  <% @blog.tags.each do |tag| %>
+    <div class="label label-primary"><%= tag.name %></div>
+  <% end %>
+<% end %>
 
 <%# render blog content ------------------------------------------------------ %>
 <div class="blog-border">

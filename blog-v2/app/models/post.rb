@@ -6,6 +6,9 @@ class Post < ActiveRecord::Base
   has_many :favorites, dependent: :destroy
   has_many :favorites_users, through: :favorites, source: :user
 
+  has_many :taggings, dependent: :destroy
+  has_many :tags, through: :taggings
+
   # has_many :votes, dependent: :destroy
   # has_many :voting_users, through: :votes, source: :user
 

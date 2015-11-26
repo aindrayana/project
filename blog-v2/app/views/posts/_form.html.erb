@@ -14,6 +14,29 @@
       <%= f.cktext_area :body, class: "form-control", :cols => 40, :ckeditor => {:toolbar => 'MyToolbar'} %>
       <%#= f.text_area :body, class: "form-control", placeholder: "input question ..", rows: "4"%>
     </div>
+
+    <div class="form-group">
+      <%#= f.collection_check_boxes :tag_ids, Tag.order(:name), :id, :name, {class: "form-control"} %>
+      Tags :
+      <%= f.collection_check_boxes(:tag_ids, Tag.order(:name), :id, :name) do |b| %>
+        <!-- <div class="row"> -->
+          <%= b.label(class: "check_box") do %>
+            <!-- <div class="col-xs-4"> -->
+              <%= b.check_box(class: "check_box") %>
+              <span class="form-checkbox"><%= b.object.name %></span>
+            <!-- </div> -->
+          <% end %>
+        <!-- </div> -->
+      <% end %>
+
+
+      <%#= f.collection_select(:tag_ids, :category_id, Category.all, :id, :name, {disabled: -> (category) { category.archived? }}) %>
+      <%#= f.label :tag_ids, class: "control-label text-right"  %>
+      <%#= f.collection_select :tag_ids, Tag.order(:name), :id, :name, {prompt: "Select a tag"}, {class: "form-control"} %>
+      <%#= f.collection_select :category, Category.all, :id, :name, {prompt: "Select a category"}, {class: "form-control"} %>
+      <!-- <input type="checkbox" value="1" name="post[tag_ids][]" id="post_tag_ids_1"> -->
+    </div>
+
     <div class="form-group">
         <%= f.submit(class: "btn btn-primary") %>
         <%= link_to 'Cancel', posts_path, class:"btn btn-primary" %>

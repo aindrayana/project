@@ -12,6 +12,15 @@
     <blockquote>
       <%= @post.created_at.strftime("%B %d, %Y") %>
     </blockquote>
+    <div>
+      <% if @post.tags.any? %>
+        Tagged with:
+        <% @post.tags.each do |tag| %>
+          <div class="label label-primary"><%= tag.name %></div>
+        <% end %>
+      <% end %>
+
+    </div>
     <%= simple_format(@post.body, {}, :sanitize => false) %>
   </div>
 
