@@ -10,7 +10,7 @@ class PostsController < ApplicationController
       # redirect_to root_path, notice: "Access denied!" unless can? :manage, @post
     end
     def post
-      @post ||= Post.find params[:id]
+      @post ||= Post.friendly.find params[:id]
     end
     def post_params
       # params.require(:post).permit([:title, :body])

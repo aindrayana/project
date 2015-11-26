@@ -42,6 +42,10 @@ class Post < ActiveRecord::Base
   #   votes.select {|v| v.is_up?}.count - votes.select {|v| !v.is_up?}.count
   # end
 
+  #friendly_id
+  extend FriendlyId
+  friendly_id :title, use: [:slugged, :history]
+
   private
 
     def set_default_values

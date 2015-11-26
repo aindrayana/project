@@ -27,7 +27,7 @@ class FavoritesController < ApplicationController
   end
 
   def post
-    @post ||= Post.find params[:post_id]
+    @post ||= Post.friendly.find params[:post_id]
   end
 
 

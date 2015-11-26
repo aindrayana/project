@@ -22,7 +22,7 @@ class BlogsController < ApplicationController
   end
 
   def blog
-    @blog ||= Post.find params[:id]
+    @blog ||= Post.friendly.find params[:id]
   end
 
 end
