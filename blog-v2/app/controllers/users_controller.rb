@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :control_panel
+  before_action :control_panel, only: [:index]
 
   def control_panel
     authenticate_user

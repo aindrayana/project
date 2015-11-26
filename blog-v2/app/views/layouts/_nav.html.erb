@@ -12,9 +12,14 @@
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
             <li><a>hello <%= current_user.username %></a></li>
+            <% if @blog %>
+              <% if @blog.favorite_by?(current_user) %>
+              <li><a><%= current_user.favorites.count %> favorite blogs</a></li>
+              <% end %>
+            <% end %>
             <li><%= link_to "log out", sessions_path, method: :delete %></li>
             <% if current_user.admin %>
-              <li><%= link_to "control panel", users_path %></li>
+              <li><%= link_to "control panel", posts_path %></li>
             <% end %>
 
           <% else %>

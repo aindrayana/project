@@ -2,6 +2,10 @@ class Post < ActiveRecord::Base
   belongs_to :user
 
   has_many :comments, dependent: :destroy
+
+  has_many :favorites, dependent: :destroy
+  has_many :favorites_users, through: :favorites, source: :user
+
   # has_many :votes, dependent: :destroy
   # has_many :voting_users, through: :votes, source: :user
 
@@ -22,14 +26,14 @@ class Post < ActiveRecord::Base
 
   # ----------------------------------------------------------------------------
 
-  # def voted_on_by?(user)
-  #   vote_for(user).present?
-  # end
-  #
-  # def vote_for(user)
-  #   votes.find_by_user_id user.id
-  # end
-  #
+  def favorite_by?(user)
+    favorite_for(user).present?
+  end
+
+  def favorite_for(user)
+    favorites.find_by_user_id(user.id)
+  end
+
   # def vote_result
   #   # this will show the number of votes
   #   votes.select {|v| v.is_up?}.count - votes.select {|v| !v.is_up?}.count

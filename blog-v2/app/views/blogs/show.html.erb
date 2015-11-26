@@ -11,16 +11,18 @@
     <%= @blog.created_at.strftime("%B %d, %Y @ %I:%M %P").upcase %>
   </div>
 
-<%# favorite blog ------------------------------------------------------------ %>
+<%# favorite  ---------------------------------------------------------------- %>
   <div class="col-md-4 text-right" style="transform: translateY(50%)">
-    <a class="font-16 text-info" rel="nofollow" data-method="delete" href="/ideas/5/likes/14"><i class="fa fa-heart-o"></i> favorite</a>
+    <!-- <a class="font-16 text-info" rel="nofollow" data-method="delete" href="/posts/5/likes/14"><i class="fa fa-heart-o"></i> favorite</a> -->
 
-    <%# if user_signed_in? && @idea.liked_by?(current_user) %>
-      <%#= link_to "\nLIKED", idea_like_path(@idea, @idea.like_for(current_user)), class: "glyphicon glyphicon-heart font-16 text-info", method: :delete %>
-    <%# else %>
-      <%#= link_to "\nLIKE", idea_likes_path(@idea), class: "glyphicon glyphicon-heart-empty font-16 text-info", method: :post %>
-    <%# end %>
+    <% if user_signed_in? && @blog.favorite_by?(current_user) %>
+      <%= link_to "<i class='fa fa-heart'></i> favorite".html_safe, post_favorite_path(@blog, @blog.favorite_for(current_user)), class: "font-16 text-info", method: :delete %>
+    <% else %>
+      <%= link_to "<i class='fa fa-heart-o'></i> favorite".html_safe, post_favorites_path(@blog), class: "font-16 text-info", method: :post %>
+    <% end %>
   </div>
+
+
 
 <%# top comment count -------------------------------------------------------- %>
   <div class="col-md-3 text-right border-left" style="transform: translateY(50%)">

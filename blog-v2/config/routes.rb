@@ -13,11 +13,11 @@ Rails.application.routes.draw do
   end
 
   resources :blogs, only: [:index, :show]
-    # resources :votes, only: [:create, :destroy, :update]
 
   # resources :posts
   resources :posts do
     resources :comments
+    resources :favorites, only: [:create, :destroy]
   end
 
 end
