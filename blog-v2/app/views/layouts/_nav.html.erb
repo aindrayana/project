@@ -7,14 +7,21 @@
 
       <div class="collapse navbar-collapse" id="custom-collapse">
         <ul class="nav navbar-nav">
-          <li><a href="#">About</a><%#= link_to "About", about_path %></li>
+          <li><%= link_to "about", about_path %></li>
         </ul>
+        <!-- #search navbar -->
+        <%= form_tag search_path, class: "navbar-form navbar-left", role: "search" do %>
+          <div class="form-group">
+            <%= text_field_tag(:search, nil, class: "form-control", placeholder: "search blog ...") %>
+          </div>
+        <% end %>
+
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
             <li><a>hello <%= current_user.username %></a></li>
             <% if @blog %>
-              <% if @blog.favorite_by?(current_user) %>
-              <li><a><%= current_user.favorites.count %> favorite blogs</a></li>
+              <% if current_user.favorites.count > 0 %>
+              <li><%= link_to "#{current_user.favorites.count} favorite blogs", post_favorites_path(@blog, @blog.favorite_for(current_user)) %></li>
               <% end %>
             <% end %>
             <li><%= link_to "log out", sessions_path, method: :delete %></li>

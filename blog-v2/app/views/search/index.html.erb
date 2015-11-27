@@ -1,0 +1,29 @@
+<h4>Search result : </h4>
+<% if @blog.present? %>
+  <div class="top-20">
+    <%= @blog.count %> blogs found for "<%= @search %>"
+  </div>
+  <hr>
+  <% @blog.each do |blog| %>
+  <div class="post-preview">
+    <div class="post-date text-center">
+      <div class="date">
+        <span class="day"><%= blog.created_at.strftime("%d") %></span>
+        <span class="month"><%= blog.created_at.strftime("%b").upcase %></span>
+      </div>
+    </div>
+    <div class="post-content">
+      <h2 class="post-title"><%= link_to blog.title, blog_path(blog) %></h2>
+      <div class="post-meta-info">
+        Posted by <%= blog.user.username %> <span class="margin-left-right"> | </span><%= pluralize(blog.comments.count, "Comment") %>
+      </div>
+      <%= (strip_tags(blog.body)).split.first(30).join(' ').html_safe %> ...
+    </div>
+  </div>
+  <hr>
+  <% end %>
+<% else %>
+  <div class="top-30">
+    0 blogs found for "<%= @search %>"
+  </div>
+<% end %>

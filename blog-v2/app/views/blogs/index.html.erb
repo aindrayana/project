@@ -7,7 +7,6 @@
         <i class="fa fa-angle-down fa-2x"></i>
       </div>
     </div>
-
     <a href="#blog-list">
       <div class="scroll-down">
         <span>
@@ -17,33 +16,46 @@
     </a>
   </section>
 
-
   <a name="blog-list"></a>
   <!-- Main Content -->
   <div class="container top-100">
-      <div>
-          <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-4">
+          <div class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-4 top-30">
 
             <% @blogs.each do |blog| %>
               <div class="post-preview">
-                  <a href="post.html">
-                      <h2 class="post-title"><%= link_to blog.title, blog_path(blog) %></h2>
-                      <div class="post-subtitle opensans font-16 top-10">
-                        <%= (strip_tags(blog.body)).split.first(20).join(' ').html_safe %> ...
-                      </div>
-                  </a>
-                  <p class="post-meta lora">Posted by <a href="#">Start Bootstrap</a> on September 24, 2014</p>
+                <div class="post-date text-center">
+                  <div class="date">
+                    <span class="day"><%= blog.created_at.strftime("%d") %></span>
+                    <span class="month"><%= blog.created_at.strftime("%b").upcase %></span>
+                  </div>
+                  <div class="post-fav">
+                    <i class='fa fa-heart color-77'></i> <%= blog.favorites.count %>
+                  </div>
+                </div>
+                <div class="post-content">
+                  <h2 class="post-title"><%= link_to blog.title, blog_path(blog) %></h2>
+                  <div class="post-meta-info">
+                    Posted by <%= blog.user.username %> <span class="margin-left-right"> | </span><%= pluralize(blog.comments.count, "Comment") %>
+                  </div>
+                  <%= (strip_tags(blog.body)).split.first(30).join(' ').html_safe %> ...
+                </div>
               </div>
               <hr>
             <% end %>
 
               <!-- Pager -->
               <ul class="pager">
-                  <li class="next">
-                      <a href="#">Older Posts &rarr;</a>
-                  </li>
+                <!-- <li class="next"><a href="#">Older Posts &rarr;</a></li> -->
+                <li class="prev"><%= link_to_previous_page @blogs, "Newer Posts" %></li>
+                <li class="next text-right"><%= link_to_next_page @blogs, "Older Posts" %></li>
               </ul>
 
+
+
+              <!-- 222 -->
+              <!-- <div class="text-center">
+                <%#= paginate @blogs %>
+              </div> -->
+
           </div>
-      </div>
   </div>

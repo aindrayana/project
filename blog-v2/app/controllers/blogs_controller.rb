@@ -2,13 +2,20 @@ class BlogsController < ApplicationController
   before_action :blog, only: [:show]
 
   def index
-    @page = 0
-    @num = 0
+    # paging ------------------
+    @per_page = 5
+    @page = 1
+    # @num = 0
     @page = params[:page] if params.has_key?(:page)
-    if (@page!=0)
-      @num = (@page.to_i - 1) * 10
-    end
-    @blogs = Post.all.order("id DESC").page(params[:page]).per(10)
+
+
+    # if (@page!=0)
+    #   @num = (@page.to_i - 1) * 10
+    # end
+    # end paging -------------
+    @blogs = Post.all.order("id DESC").page(params[:page]).per(@per_page)
+    # @total_pages = (@blogs.count / @per_page.).ceil
+    # @blog = Post.paginate(:page => @page, :per_page => 5).order("created_at DESC")
   end
 
   def show

@@ -3,7 +3,9 @@ class FavoritesController < ApplicationController
   before_action :authenticate_user
 
   def index
-
+    @post = Post.all
+    @fav = @post.joins(:favorites).where("favorites.user_id=#{current_user.id}")
+    # render text: @fav.inspect
   end
 
   def create

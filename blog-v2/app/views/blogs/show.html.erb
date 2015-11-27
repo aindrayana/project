@@ -49,45 +49,29 @@
 <%# input comment box -------------------------------------------------------- %>
   <hr>
   <div>
-      <%= form_for [@blog, @comment] do |f| %>
-        <div class="form-group">
-          <%= f.label :body, value: "Your comment" %>
-          <%= f.text_area :body, class: "form-control", placeholder: "Enter your comment ...", rows: "4" %>
-        </div>
-        <%= f.submit class: "btn btn-primary", value: "Post Your Comment" %>
-      <% end %>
+    <%# ----- moved to partial --------------------- %>
+    <%= render "/comments/comment_form" %>
   </div>
   <hr>
 
 <%# comments list ------------------------------------------------------------ %>
-  <h4><%= pluralize(@blog.comments.count, "Comment") %></h4>
+  <h4><span id="comment-count"><%= @blog.comments.count %></span>
+    <%= @blog.comments.count > 0 ? "Comment".pluralize(@blog.comments.count) : "Comment" %>
+  </h4>
   <hr>
+  <div id="comments-list">
   <% if @blog.comments.present? %>
       <% @blog.comments.order("id DESC").each do |comment| %>
-        <div class="col-md-12">
-          <div class="col-md-3 right-border">
-            <i class="glyphicon glyphicon-user"></i> <%= comment.user.username %><br>
-            <i class="glyphicon glyphicon-time"></i> <%= time_ago_in_words(comment.created_at) %> ago
-            <br>
-            <% if can? :destroy, comment %>
-              <%= link_to "Delete", post_comment_path(@blog, comment), method: :delete,
-                          class: "btn btn-danger btn-sm", data: {confirm: "Are you sure?"} %>
-            <% end %>
-          </div>
-
-          <div class="col-md-9">
-              <%= comment.body.html_safe %>
-          </div>
-
-        </div>
-        <div class="col-md-12">
-          <hr>
-        </div>
+          <%# ----- moved to partial --------------------- %>
+          <%= render "/comments/comment", comment: comment %>
       <% end %>
   <% else %>
-    <p class="top-30">No comment at this moment. Be the first to comment this question by submit your comment below</p>
-    <hr>
+    <div id="no-comments">
+      <p class="top-30">No comment at this moment. Be the first to comment this question by submit your comment below</p>
+      <hr>
+    </div>
   <% end %>
+</div>
 
 
 </div>

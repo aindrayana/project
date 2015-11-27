@@ -1,0 +1,7 @@
+if ($("#no-comments")) { $("#no-comments").remove(); }
+$("#comments-list").prepend("<%= j render '/comments/comment', comment: @comment %>");
+<% @comment = Comment.new %>
+$("#new_comment").replaceWith("<%= j render 'comment_form' %>");
+
+var count = $("#comment-count").html();
+$("#comment-count").html(parseInt(count)+1);

@@ -1,0 +1,7 @@
+<%= form_for [@blog, @comment], remote: true do |f| %>
+  <div class="form-group">
+    <%= f.label :body, value: "Your comment" %>
+    <%= f.text_area :body, class: "form-control", placeholder: "Enter your comment ...", rows: "4" %>
+  </div>
+  <%= f.submit class: "btn btn-primary", value: "Post Your Comment" %>
+<% end %>
